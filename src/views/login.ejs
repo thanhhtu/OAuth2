@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/loginStyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <div class="login-mode">LOG IN</div>
+            <form action="/auth/check-login" method="POST">
+                <p>Username</p>
+                <input type="text" placeholder="Enter your name" required id="username-login-input" name="email">
+                <p>Password</p>
+                <input type="password" placeholder="Enter your password" required id="password-login-input" name="password">
+                <button type="submit" class="btn">LOG IN</button>
+            </form>
+            <button class="btn btn-google"><a href="/auth/google">LOG IN WITH GOOGLE</button>
+        </div>
+    </div>
+</body>
+</html>
