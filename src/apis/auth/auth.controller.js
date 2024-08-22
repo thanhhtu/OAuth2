@@ -9,7 +9,7 @@ class AuthController {
         try {
             const { email, password } = req.body
             console.log(req.body)
-            const token = await authService.checkLogin({ email, password })
+            const token = await authService.setTokenBasicLogin({ email, password })
 
             if (token) {
                 return res.status(200).json({

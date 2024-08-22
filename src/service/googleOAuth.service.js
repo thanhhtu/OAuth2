@@ -15,9 +15,8 @@ class GoogleOAuthService {
         return GOOGLE_OAUTH_CONSENT_SCREEN_URL
     }
 
-    //exchange authorization code for access token & id_token 
-    //access_token_data contains access_token, refresh token, id_token,...
-    async getTokenFromAuthCode(code) {
+    //exchange authorization code for access_token_data (access token, refresh token, id token,...)
+    async getTokenDataFromAuthCode(code) {
         try {
             const data = {
                 code,
@@ -51,6 +50,29 @@ class GoogleOAuthService {
         const token_info_data = await token_info_response.json()
 
         return token_info_data
+    }
+
+    //reset access_token (access token, id token,...) from refresh token
+    async resetTokenData(refresh_token) {
+        try {
+            const data = {
+                client_id: process.env.GOOGLE_CLIENT_ID,
+                client_secret: process.env.GOOGLE_CLIENT_SECRET,
+                refresh_token: refresh_token,
+                grant_type: 'refresh_token',
+            }
+
+            const response = await fetch(process.env.GOOGLE_ACCESS_TOKEN_URL, {
+                method: 'POST',
+                body: JSON.stringify(data),
+            })
+
+            const access_token = await response.json()
+
+            return access_token
+        } catch (error) {
+            throw error
+        }
     }
 }
 
