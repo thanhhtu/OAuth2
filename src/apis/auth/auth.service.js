@@ -25,15 +25,20 @@ class AuthService {
         }
     }
 
-    async setTokenGoogleLogin(email) {
+    async setTokenGoogleLogin(code) {
         try {
+            const access_token_data = await googleOAuthService.getTokenFromAuthCode(code)
+            const token_info_data = await googleOAuthService.getDataFromToken(access_token_data)
+
+            const { email } = token_info_data //email in token_info_data
+
             let user = await usersModel.getUserByEmail(email)
             if (user == null) {
                 user = await usersModel.createUser(email)
             }
             let token = await userIdentityService.encodeToken(user)
-            console.log(token)
-            return { user, token }
+            
+            return token
         } catch (error) {
             throw error
         }
